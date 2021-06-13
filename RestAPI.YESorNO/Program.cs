@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿/* Abrarov 220
+REST API 
+Teacher D.K.Y */
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace RestAPI.YESorNO
 {
