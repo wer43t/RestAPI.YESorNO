@@ -5,16 +5,34 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
+using Telegram.Bot;
 
 
 namespace RestAPI.YESorNO
 {
     class Program
     {
-        static void Main(string[] args)
+        static Root answer;
+        static void Main(string[] args) 
         {
-            Console.WriteLine("Введите вопрос, на который хотите получить ответ");
-            Console.ReadLine();
+            TelegramBotClient bot = new TelegramBotClient("1850458854:AAGTxgQxSUlvJndSDbK7rh2OVvob5osovHI");
+
+            bot.OnMessage += (s, arg) =>
+            {
+                GetAnswer();
+           
+                bot.SendTextMessageAsync(arg.Message.Chat.Id, answer.answer);
+                bot.SendVideoAsync(arg.Message.Chat.Id, answer.image);
+
+            };
+
+            bot.StartReceiving();
+
+            Console.ReadKey();
+        }
+
+        static void GetAnswer()
+        {
             var url = $"https://yesno.wtf/api";
 
             var request = WebRequest.Create(url);
@@ -31,9 +49,7 @@ namespace RestAPI.YESorNO
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
                 string result = streamReader.ReadToEnd();
-                var answer = JsonConvert.DeserializeObject<Root>(result);
-                Console.WriteLine(answer.answer);
-                System.Diagnostics.Process.Start(answer.image);
+                answer = JsonConvert.DeserializeObject<Root>(result);
             }
         }
     }
