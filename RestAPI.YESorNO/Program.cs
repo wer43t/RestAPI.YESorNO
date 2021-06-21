@@ -16,6 +16,7 @@ namespace RestAPI.YESorNO
         static void Main(string[] args) 
         {
             TelegramBotClient bot = new TelegramBotClient("1850458854:AAGTxgQxSUlvJndSDbK7rh2OVvob5osovHI");
+            //BOT NAME IN TG: @YesOrNo11222_bot !!!!!!!!!!!!!!!!!!!!!!!!!!
 
             bot.OnMessage += (s, arg) =>
             {
